@@ -130,7 +130,7 @@ select{width:100%;background:var(--surface);border:2px solid var(--border);color
 <body>
 <div id="adminBar">
   <label>🔧 管理者設定 ／ 為替レート： $1 =</label>
-  <input type="number" id="exchangeRate" value="170" min="100" max="300" step="0.5">
+  <input type="number" id="exchangeRate" value="165" min="100" max="300" step="0.5">
   <span style="color:#6b8c76;font-size:.85rem">円</span>
   <button class="admin-close-btn" onclick="document.getElementById('adminBar').classList.remove('show')">閉じる</button>
 </div>
@@ -346,7 +346,7 @@ function makeCard(p, disabled){
   }
   var nm = document.createElement("div"); nm.className="product-name"; nm.textContent=p.name; card.appendChild(nm);
   var pp = document.createElement("div"); pp.className="product-pv-price";
-  var rate=parseFloat(document.getElementById("exchangeRate").value)||170;
+  var rate=parseFloat(document.getElementById("exchangeRate").value)||165;
   var shp=parseFloat(document.getElementById("countrySelect").value)/100;
   var displayUsd=p.price*(1+shp);
   pp.innerHTML = "<div class='prod-price' data-usd='"+p.price+"'>$"+Math.round(displayUsd).toLocaleString()+"</div><div class='prod-yen' data-usd='"+p.price+"'>¥"+Math.round(displayUsd*rate).toLocaleString()+"</div><div class='prod-pv'>"+p.pv.toLocaleString()+" PV</div>";
@@ -443,7 +443,7 @@ function updateProductPrices(rate,shp){
 }
 
 function recalc(){
-  var rate=parseFloat(document.getElementById("exchangeRate").value)||170;
+  var rate=parseFloat(document.getElementById("exchangeRate").value)||165;
   var shp=parseFloat(document.getElementById("countrySelect").value)/100;
   updateProductPrices(rate,shp);
   var pv=totalPV(), usd=totalUSD();
@@ -499,7 +499,7 @@ function recalc(){
 
 
 function genCopyText(){
-  var rate=parseFloat(document.getElementById("exchangeRate").value)||170;
+  var rate=parseFloat(document.getElementById("exchangeRate").value)||165;
   var shp=parseFloat(document.getElementById("countrySelect").value)/100;
   var pv=totalPV(), usd=totalUSD();
   if(!(pv>0&&pv%750===0)) return null;
@@ -516,7 +516,7 @@ function genCopyText(){
   for(var i=0;i<ALL.length;i++){
     if(qty[ALL[i].id]>0){
       var lu=ALL[i].price*qty[ALL[i].id];
-      lines+="  "+ALL[i].name+" x"+qty[ALL[i].id]+" $"+lu.toLocaleString()+" ("+String.fromCharCode(170)+Math.round(lu*rate).toLocaleString()+")\n";
+      lines+="  "+ALL[i].name+" x"+qty[ALL[i].id]+" $"+lu.toLocaleString()+" ("+String.fromCharCode(165)+Math.round(lu*rate).toLocaleString()+")\n";
     }
   }
   var sep="────────────────────────";
@@ -526,9 +526,9 @@ function genCopyText(){
   t+="ランク: "+rank+" / 発送先: "+country+"\n\n";
   t+="[選択商品]\n"+lines+"\n";
   t+="[料金内訳]\n";
-  t+="商品代金    $"+usd.toLocaleString()+" ("+String.fromCharCode(170)+Math.round(usd*rate).toLocaleString()+")\n";
-  if(hasCust()) t+="カスタマー料 $"+cusd+" ("+String.fromCharCode(170)+cjpy.toLocaleString()+")\n";
-  t+="送料("+Math.round(shp*100)+"%) $"+Math.round(shipUSD).toLocaleString()+" ("+String.fromCharCode(170)+Math.round(shipUSD*rate).toLocaleString()+")\n";
+  t+="商品代金    $"+usd.toLocaleString()+" ("+String.fromCharCode(165)+Math.round(usd*rate).toLocaleString()+")\n";
+  if(hasCust()) t+="カスタマー料 $"+cusd+" ("+String.fromCharCode(165)+cjpy.toLocaleString()+")\n";
+  t+="送料("+Math.round(shp*100)+"%) $"+Math.round(shipUSD).toLocaleString()+" ("+String.fromCharCode(165)+Math.round(shipUSD*rate).toLocaleString()+")\n";
   var pts=getPointTotal();
   if(pts>0){
     t+="\n[ポイント払い用計算]\n";
@@ -536,7 +536,7 @@ function genCopyText(){
     t+="お支払い予定金額数 $"+Math.max(0,Math.round(grand-pts)).toLocaleString()+"\n";
   }
   t+=sep+"\n";
-  t+="合計 $"+Math.round(grand).toLocaleString()+" ("+String.fromCharCode(170)+Math.round(grandJpy).toLocaleString()+")";
+  t+="合計 $"+Math.round(grand).toLocaleString()+" ("+String.fromCharCode(165)+Math.round(grandJpy).toLocaleString()+")";
   return t;
 }
 
